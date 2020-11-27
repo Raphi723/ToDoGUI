@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="PriorityController">
+   <children>
+      <ListView fx:id="priorityListView" onMouseClicked="#itemSelected" prefHeight="400.0" prefWidth="222.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <Label layoutX="231.0" layoutY="35.0" text="Priorität" AnchorPane.leftAnchor="231.0" AnchorPane.topAnchor="35.0" />
+      <TextField fx:id="priorityName" layoutX="300.0" layoutY="31.0" prefHeight="26.0" prefWidth="283.0" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="16.80000000000001" AnchorPane.topAnchor="31.0" />
+      <Button layoutX="423.0" layoutY="354.0" mnemonicParsing="false" text="Abbrechen" />
+      <Button layoutX="508.0" layoutY="354.0" mnemonicParsing="false" text="Speichern" />
+   </children>
+</AnchorPane>
