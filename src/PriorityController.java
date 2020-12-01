@@ -55,6 +55,15 @@ public class PriorityController {
             }
         } else {
             // insert new item
+            AbstractDatabase conn = new MySQLConnector("d0345763", "5AHEL2021", "rathgeb.at", 3306, "d0345763");
+            try {
+                PreparedStatement statement = conn.getConnection().prepareStatement(
+                        "INSERT INTO g5_Prioritaet (name) VALUES ('" + priorityName.getText() + "')");
+                statement.execute();
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -75,17 +84,6 @@ public class PriorityController {
 
     public void newClicked(MouseEvent mouseEvent) {
         selectedItem = null;
-
-        AbstractDatabase conn = new MySQLConnector("d0345763", "5AHEL2021", "rathgeb.at", 3306, "d0345763");
-        try {
-            PreparedStatement statement = conn.getConnection().prepareStatement(
-                    "INSERT INTO g5_Prioritaet (name) VALUES ('" + priorityName.getText() + "')");
-            statement.execute();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
         priorityName.clear();
         priorityListView.getSelectionModel().clearSelection();
     }
