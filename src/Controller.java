@@ -15,7 +15,7 @@ public class Controller {
 
             Stage s = new Stage();
             s.setTitle("Status");
-            s.setScene(new Scene(root, 300, 275));
+            s.setScene(new Scene(root, 600, 400));
             s.show();
         } catch (IOException e) {
             e.printStackTrace();
@@ -30,7 +30,7 @@ public class Controller {
 
             Stage s = new Stage();
             s.setTitle("Prioritäten");
-            s.setScene(new Scene(root, 300, 275));
+            s.setScene(new Scene(root, 600, 400));
             s.show();
         } catch (IOException e) {
             e.printStackTrace();
