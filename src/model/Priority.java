@@ -44,11 +44,11 @@ public class Priority {
 
         AbstractDatabase conn = new MySQLConnector("d0345763", "5AHEL2021", "rathgeb.at", 3306, "d0345763");
         try {
-            PreparedStatement statement = conn.getConnection().prepareStatement("SELECT * from Prioritaet");
+            PreparedStatement statement = conn.getConnection().prepareStatement("SELECT * FROM g5_Prioritaet");
             ResultSet results = statement.executeQuery();
 
             while (results.next()) {
-                Priority tmp = new Priority(results.getInt("priority_id"), results.getString("name"));
+                Priority tmp = new Priority(results.getInt("prioritaet_id"), results.getString("name"));
 
                 list.add(tmp);
             }
