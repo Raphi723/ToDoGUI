@@ -61,11 +61,31 @@ public class PriorityController {
     public void deleteClicked(MouseEvent mouseEvent) {
         if (selectedItem != null) {
             // delete item
+            AbstractDatabase conn = new MySQLConnector("d0345763", "5AHEL2021", "rathgeb.at", 3306, "d0345763");
+            try {
+                PreparedStatement statement = conn.getConnection().prepareStatement(
+                        "DELETE FROM g5_Prioritaet WHERE prioritaet_id = " + selectedItem.getId());
+                statement.execute();
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 
     public void newClicked(MouseEvent mouseEvent) {
         selectedItem = null;
+
+        AbstractDatabase conn = new MySQLConnector("d0345763", "5AHEL2021", "rathgeb.at", 3306, "d0345763");
+        try {
+            PreparedStatement statement = conn.getConnection().prepareStatement(
+                    "INSERT INTO g5_Prioritaet (name) VALUES ('" + priorityName.getText() + "')");
+            statement.execute();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
         priorityName.clear();
         priorityListView.getSelectionModel().clearSelection();
     }
