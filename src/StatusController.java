@@ -54,11 +54,10 @@ public class StatusController {
             AbstractDatabase conn = new MySQLConnector("d0345763","5AHEL2021", "rathgeb.at",3306 ,"d0345763");
 
             try {
-                PreparedStatement statement = conn.getConnection().prepareStatement("UPDATE g5_Status SET name =" + status_textField.getText().toString() +
-                        "WHERE status_id=" + status_ListView.getSelectionModel().getSelectedItem().getId());
+                PreparedStatement statement = conn.getConnection().prepareStatement(
+                        "UPDATE g5_Status SET name =" + status_textField.getText().toString() + "status_id=" + status_ListView.getSelectionModel().getSelectedItem().getId());
 
-
-                ResultSet resultSet = statement.executeQuery();
+                statement.execute();
 
 
             } catch (SQLException e) {
