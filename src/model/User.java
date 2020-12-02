@@ -1,5 +1,14 @@
 package model;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import model.db.AbstractDatabase;
+import model.db.MySQLConnector;
+
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 public class User {
     private int bearbeiter_id;
     private String name;
@@ -55,6 +64,26 @@ public class User {
         this.ort = ort;
     }
 
+
+    public static ObservableList<User> getList() {
+        ObservableList<User> list = FXCollections.observableArrayList();
+
+        AbstractDatabase conn = new MySQLConnector("d0345763", "5AHEL2021", "rathgeb.at", 3306, "d0345763");
+        try {
+            PreparedStatement statement = conn.getConnection().prepareStatement("SELECT * FROM g5_Bearbeiter");
+            ResultSet results = statement.executeQuery();
+
+            while (results.next()) {
+                User tmp = new User(results.getInt("bearbeiter_id"), results.getString("name"), results.getString("strasse"), results.getInt("plz"), results.getString("ort"));
+
+                list.add(tmp);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return list;
+    }
 
 
 

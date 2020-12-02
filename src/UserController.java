@@ -3,6 +3,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
+import model.Status;
 import model.User;
 import model.db.AbstractDatabase;
 import model.db.MySQLConnector;
@@ -13,11 +15,11 @@ import java.sql.SQLException;
 public class UserController {
     public User selectedItem = null;
 
-    public ListView userListView;
+    public ListView<User> userListView;
 
     public TextField nameTextField;
-    public TextField zipTextField;
     public TextField streetTextField;
+    public TextField zipTextField;
     public TextField cityTextField;
 
     public Button newButton;
@@ -28,9 +30,28 @@ public class UserController {
 
 
     public void itemSelected(MouseEvent mouseEvent) {
+        User u = userListView.getSelectionModel().getSelectedItem();
+
+        if(u != null){
+            nameTextField.setText(u.getName());
+            streetTextField.setText(u.getStrasse());
+            zipTextField.setText(String.valueOf(u.getPlz()));
+            cityTextField.setText(u.getOrt());
+
+
+            selectedItem = u;
+        }
     }
 
     public void newButtonClicked(ActionEvent actionEvent) {
+        selectedItem = null;
+
+        nameTextField.clear();
+        streetTextField.clear();
+        zipTextField.clear();
+        cityTextField.clear();
+
+        userListView.getSelectionModel().clearSelection();
     }
 
     public void deleteButtonClicked(ActionEvent actionEvent) {
@@ -47,10 +68,54 @@ public class UserController {
             }
         }
 
-        public void saveButtonClicked (ActionEvent actionEvent){
-        }
+        userListView.setItems(User.getList());
 
-        public void cancelButtonClicked (ActionEvent actionEvent){
+    }
+
+    public void saveButtonClicked (ActionEvent actionEvent){
+        if(selectedItem != null){
+            //update existing item
+            // priorityListView mus noch geändert werden
+            //priorityListView.getSelectionModel().getSelectedItem().set(priorityName.getText());
+
+            //status_ListView.getSelectionModel().clearSelection();
+            //status_ListView.getSelectionModel().getSelectedItem().setName(status_textField.getText());
+
+
+            AbstractDatabase conn = new MySQLConnector("d0345763", "5AHEL2021", "rathgeb.at", 3306, "d0345763");
+            try {
+                PreparedStatement statement = conn.getConnection().prepareStatement(
+                        "UPDATE g5_Bearbeiter SET (name, strasse, plz, ort) = " +
+                                "('" +
+                                nameTextField.getText() + "','" + streetTextField.getText() + "','" + Integer.parseInt(zipTextField.getText()) + "','" + cityTextField.getText() + "') " +
+                                "WHERE status_id = " + selectedItem.getBearbeiter_id());
+
+                statement.execute();
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+        }else{
+            //insert new
+
+            AbstractDatabase conn = new MySQLConnector("d0345763", "5AHEL2021", "rathgeb.at", 3306, "d0345763");
+            try {
+                PreparedStatement statement = conn.getConnection().prepareStatement(
+                        "INSERT INTO g5_Bearbeiter (name, strasse, plz, ort) VALUES ('" +
+                               nameTextField.getText() + "','" + streetTextField.getText() + "','" + Integer.parseInt(zipTextField.getText()) + "','" + cityTextField.getText() +"')");
+                statement.execute();
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
+        userListView.setItems(User.getList());
+    }
+
+    public void cancelButtonClicked (ActionEvent actionEvent){
+        //close dialog
+        Stage stage = (Stage) cancelButton.getScene().getWindow();
+        stage.close();
     }
 }
