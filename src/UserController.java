@@ -28,6 +28,10 @@ public class UserController {
     public Button saveButton;
     public Button cancelButton;
 
+    public void initialize(){
+        userListView.setItems(User.getList());
+    }
+
 
     public void itemSelected(MouseEvent mouseEvent) {
         User u = userListView.getSelectionModel().getSelectedItem();
@@ -85,9 +89,8 @@ public class UserController {
             AbstractDatabase conn = new MySQLConnector("d0345763", "5AHEL2021", "rathgeb.at", 3306, "d0345763");
             try {
                 PreparedStatement statement = conn.getConnection().prepareStatement(
-                        "UPDATE g5_Bearbeiter SET (name, strasse, plz, ort) = " +
-                                "('" +
-                                nameTextField.getText() + "','" + streetTextField.getText() + "','" + Integer.parseInt(zipTextField.getText()) + "','" + cityTextField.getText() + "') " +
+                        "UPDATE g5_Bearbeiter " +
+                                "SET name ='"+ nameTextField.getText() + "', strasse = '" + streetTextField.getText() + "', plz '= " + Integer.parseInt(zipTextField.getText()) + "', ort ='" + cityTextField.getText() +"'"+
                                 "WHERE status_id = " + selectedItem.getBearbeiter_id());
 
                 statement.execute();
@@ -118,4 +121,5 @@ public class UserController {
         Stage stage = (Stage) cancelButton.getScene().getWindow();
         stage.close();
     }
+
 }

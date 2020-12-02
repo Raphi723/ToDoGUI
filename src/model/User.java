@@ -85,6 +85,8 @@ public class User {
         return list;
     }
 
-
-
+    @Override
+    public String toString() {
+        return "ID: " + bearbeiter_id + " - " + name ;
+    }
 }
