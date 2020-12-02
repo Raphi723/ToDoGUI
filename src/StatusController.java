@@ -4,6 +4,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import model.Priority;
 import model.Status;
 import model.db.AbstractDatabase;
 import model.db.MySQLConnector;
@@ -70,6 +71,7 @@ public class StatusController {
 
             //status_ListView.getSelectionModel().clearSelection();
             //status_ListView.getSelectionModel().getSelectedItem().setName(status_textField.getText());
+
 
             AbstractDatabase conn = new MySQLConnector("d0345763", "5AHEL2021", "rathgeb.at", 3306, "d0345763");
             try {
