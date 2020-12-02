@@ -38,9 +38,6 @@ public class StatusController {
     public void newItem(ActionEvent actionEvent) {
         selectedItem = null;
 
-
-
-
         status_textField.clear();
         status_ListView.getSelectionModel().clearSelection();
     }
@@ -61,6 +58,8 @@ public class StatusController {
                 e.printStackTrace();
             }
         }
+
+        status_ListView.setItems(Status.getList());
     }
 
     public void save(ActionEvent actionEvent) {
@@ -80,11 +79,9 @@ public class StatusController {
 
                 statement.execute();
 
-
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-
 
         }else{
             //insert new
@@ -98,10 +95,8 @@ public class StatusController {
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-
-
-
         }
+        status_ListView.setItems(Status.getList());
     }
 
     public void cancel(ActionEvent actionEvent) {

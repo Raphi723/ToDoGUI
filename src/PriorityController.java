@@ -49,7 +49,6 @@ public class PriorityController {
                         "UPDATE g5_Prioritaet SET name = '" + priorityName.getText() + "' WHERE prioritaet_id = " + selectedItem.getId());
                 statement.execute();
 
-
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -65,6 +64,8 @@ public class PriorityController {
                 e.printStackTrace();
             }
         }
+
+        priorityListView.setItems(Priority.getList());
     }
 
     public void deleteClicked(MouseEvent mouseEvent) {
@@ -80,6 +81,7 @@ public class PriorityController {
                 e.printStackTrace();
             }
         }
+        priorityListView.setItems(Priority.getList());
     }
 
     public void newClicked(MouseEvent mouseEvent) {
