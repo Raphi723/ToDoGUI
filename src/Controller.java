@@ -3,11 +3,24 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import model.Priority;
+import model.Status;
+import model.Todo;
 
 import java.io.IOException;
 
 public class Controller {
+    public ListView<Todo> todoListview; // befüllen
+    public ComboBox<Priority> priorityComboBox; // befüllen
+    public ComboBox<Status> statusComboBox; // befüllen
+    public TextField todoTextfield;
+    public Pane contentPane;
+
     public void onStatusClicked(ActionEvent actionEvent) {
         Parent root = null;
         try {
@@ -37,4 +50,12 @@ public class Controller {
         }
 
     }
+
+    public void initialize() {
+        todoListview.setItems(Todo.getList());
+        statusComboBox.setItems(Status.getList());
+        priorityComboBox.setItems(Priority.getList());
+    }
+
+
 }
