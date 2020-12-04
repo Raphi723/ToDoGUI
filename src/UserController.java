@@ -88,10 +88,13 @@ public class UserController {
 
             AbstractDatabase conn = new MySQLConnector("d0345763", "5AHEL2021", "rathgeb.at", 3306, "d0345763");
             try {
-                PreparedStatement statement = conn.getConnection().prepareStatement(
+                PreparedStatement statement = conn.getConnection().prepareStatement(//UPDATE g5_Bearbeiter SET name = '$name', strasse = '$strasse', plz = '$plz', ort = '$ort',  = '$';
                         "UPDATE g5_Bearbeiter " +
-                                "SET name ='"+ nameTextField.getText() + "', strasse = '" + streetTextField.getText() + "', plz '= " + Integer.parseInt(zipTextField.getText()) + "', ort ='" + cityTextField.getText() +"'"+
-                                "WHERE status_id = " + selectedItem.getBearbeiter_id());
+                                "SET name = '"+ nameTextField.getText() + "', " +
+                                "strasse = '" + streetTextField.getText() + "', " +
+                                "plz = '" + Integer.parseInt(zipTextField.getText()) + "', " +
+                                "ort = '" + cityTextField.getText() +"'"+
+                                " WHERE bearbeiter_id = " + selectedItem.getBearbeiter_id());
 
                 statement.execute();
 
@@ -106,7 +109,7 @@ public class UserController {
             try {
                 PreparedStatement statement = conn.getConnection().prepareStatement(
                         "INSERT INTO g5_Bearbeiter (name, strasse, plz, ort) VALUES ('" +
-                               nameTextField.getText() + "','" + streetTextField.getText() + "','" + Integer.parseInt(zipTextField.getText()) + "','" + cityTextField.getText() +"')");
+                               nameTextField.getText() + "," + streetTextField.getText() + "','" + Integer.parseInt(zipTextField.getText()) + "','" + cityTextField.getText() +"')");
                 statement.execute();
 
             } catch (SQLException e) {
