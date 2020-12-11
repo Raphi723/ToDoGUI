@@ -61,15 +61,9 @@ public class UserController {
     public void deleteButtonClicked(ActionEvent actionEvent) {
         if (selectedItem != null) {
             // delete item
-            AbstractDatabase conn = new MySQLConnector("d0345763", "5AHEL2021", "rathgeb.at", 3306, "d0345763");
-            try {
-                PreparedStatement statement = conn.getConnection().prepareStatement(
-                        "DELETE FROM g5_Bearbeiter WHERE bearbeiter_id = " + selectedItem.getBearbeiter_id());
-                statement.execute();
 
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            User.delete(selectedItem.getBearbeiter_id());
+
         }
 
         userListView.setItems(User.getList());
@@ -79,42 +73,16 @@ public class UserController {
     public void saveButtonClicked (ActionEvent actionEvent){
         if(selectedItem != null){
             //update existing item
-            // priorityListView mus noch geändert werden
-            //priorityListView.getSelectionModel().getSelectedItem().set(priorityName.getText());
 
-            //status_ListView.getSelectionModel().clearSelection();
-            //status_ListView.getSelectionModel().getSelectedItem().setName(status_textField.getText());
+            User.update(nameTextField.getText(), streetTextField.getText(), Integer.parseInt(zipTextField.getText()), cityTextField.getText(), selectedItem.getBearbeiter_id());
 
 
-            AbstractDatabase conn = new MySQLConnector("d0345763", "5AHEL2021", "rathgeb.at", 3306, "d0345763");
-            try {
-                PreparedStatement statement = conn.getConnection().prepareStatement(//UPDATE g5_Bearbeiter SET name = '$name', strasse = '$strasse', plz = '$plz', ort = '$ort',  = '$';
-                        "UPDATE g5_Bearbeiter " +
-                                "SET name = '"+ nameTextField.getText() + "', " +
-                                "strasse = '" + streetTextField.getText() + "', " +
-                                "plz = '" + Integer.parseInt(zipTextField.getText()) + "', " +
-                                "ort = '" + cityTextField.getText() +"'"+
-                                " WHERE bearbeiter_id = " + selectedItem.getBearbeiter_id());
-
-                statement.execute();
-
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
 
         }else{
             //insert new
 
-            AbstractDatabase conn = new MySQLConnector("d0345763", "5AHEL2021", "rathgeb.at", 3306, "d0345763");
-            try {
-                PreparedStatement statement = conn.getConnection().prepareStatement(
-                        "INSERT INTO g5_Bearbeiter (name, strasse, plz, ort) VALUES ('" +
-                               nameTextField.getText() + "," + streetTextField.getText() + "','" + Integer.parseInt(zipTextField.getText()) + "','" + cityTextField.getText() +"')");
-                statement.execute();
+            User.newUser(nameTextField.getText(), streetTextField.getText(), Integer.parseInt(zipTextField.getText()), cityTextField.getText());
 
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
         }
         userListView.setItems(User.getList());
     }

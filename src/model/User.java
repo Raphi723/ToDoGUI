@@ -24,6 +24,9 @@ public class User {
         this.ort = ort;
     }
 
+
+
+
     public int getBearbeiter_id() {
         return bearbeiter_id;
     }
@@ -89,4 +92,47 @@ public class User {
     public String toString() {
         return "Id: " + bearbeiter_id + " - " + name ;
     }
+
+    public static void delete(int bearbeiter_id) {
+        AbstractDatabase conn = new MySQLConnector("d0345763", "5AHEL2021", "rathgeb.at", 3306, "d0345763");
+        try {
+            PreparedStatement statement = conn.getConnection().prepareStatement(
+                    "DELETE FROM g5_Bearbeiter WHERE bearbeiter_id = " + bearbeiter_id);
+            statement.execute();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void update(String nameTextFieldText, String streetTextFieldText, int zip, String cityTextFieldText, int bearbeiter_id) {
+        AbstractDatabase conn = new MySQLConnector("d0345763", "5AHEL2021", "rathgeb.at", 3306, "d0345763");
+        try {
+            PreparedStatement statement = conn.getConnection().prepareStatement(//UPDATE g5_Bearbeiter SET name = '$name', strasse = '$strasse', plz = '$plz', ort = '$ort',  = '$';
+                    "UPDATE g5_Bearbeiter " +
+                            "SET name = '"+ nameTextFieldText + "', " +
+                            "strasse = '" + streetTextFieldText + "', " +
+                            "plz = '" + zip + "', " +
+                            "ort = '" + cityTextFieldText +"'"+
+                            " WHERE bearbeiter_id = " + bearbeiter_id);
+
+            statement.execute();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    public static void newUser(String nameTextFieldText, String streetTextFieldText, int zip, String cityTextFieldText) {
+        AbstractDatabase conn = new MySQLConnector("d0345763", "5AHEL2021", "rathgeb.at", 3306, "d0345763");
+        try {
+            PreparedStatement statement = conn.getConnection().prepareStatement(
+                    "INSERT INTO g5_Bearbeiter (name, strasse, plz, ort) VALUES ('" +
+                            nameTextFieldText + "," + streetTextFieldText + "','" + zip + "','" + cityTextFieldText +"')");
+            statement.execute();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

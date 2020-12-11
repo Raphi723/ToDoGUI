@@ -59,5 +59,40 @@ public class Priority {
         return list;
     }
 
+    public static void update(String name, int id) {
+        AbstractDatabase conn = new MySQLConnector("d0345763", "5AHEL2021", "rathgeb.at", 3306, "d0345763");
+        try {
+            PreparedStatement statement = conn.getConnection().prepareStatement(
+                    "UPDATE g5_Prioritaet SET name = '" + name + "' WHERE prioritaet_id = " + id);
+            statement.execute();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void newPriority(String name) {
+        AbstractDatabase conn = new MySQLConnector("d0345763", "5AHEL2021", "rathgeb.at", 3306, "d0345763");
+        try {
+            PreparedStatement statement = conn.getConnection().prepareStatement(
+                    "INSERT INTO g5_Prioritaet (name) VALUES ('" + name + "')");
+            statement.execute();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void delete(int id){
+        AbstractDatabase conn = new MySQLConnector("d0345763", "5AHEL2021", "rathgeb.at", 3306, "d0345763");
+        try {
+            PreparedStatement statement = conn.getConnection().prepareStatement(
+                    "DELETE FROM g5_Prioritaet WHERE prioritaet_id = " + id);
+            statement.execute();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
 }

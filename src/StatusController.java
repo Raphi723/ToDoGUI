@@ -48,15 +48,9 @@ public class StatusController {
 
 
         if(selectedItem != null){
-            AbstractDatabase conn = new MySQLConnector("d0345763", "5AHEL2021", "rathgeb.at", 3306, "d0345763");
-            try {
-                PreparedStatement statement = conn.getConnection().prepareStatement(
-                        "DELETE FROM g5_Status WHERE status_id = " + selectedItem.getId());
-                statement.execute();
 
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            Status.delete(selectedItem.getId());
+
         }
 
         status_ListView.setItems(Status.getList());
@@ -65,36 +59,14 @@ public class StatusController {
     public void save(ActionEvent actionEvent) {
         if(selectedItem != null){
             //update existing item
-            // priorityListView mus noch geändert werden
-            //priorityListView.getSelectionModel().getSelectedItem().set(priorityName.getText());
 
-            //status_ListView.getSelectionModel().clearSelection();
-            //status_ListView.getSelectionModel().getSelectedItem().setName(status_textField.getText());
-
-
-            AbstractDatabase conn = new MySQLConnector("d0345763", "5AHEL2021", "rathgeb.at", 3306, "d0345763");
-            try {
-                PreparedStatement statement = conn.getConnection().prepareStatement(
-                        "UPDATE g5_Status SET name = '" + status_textField.getText() + "' WHERE status_id = " + selectedItem.getId());
-
-                statement.execute();
-
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            Status.update(status_textField.getText(), selectedItem.getId());
 
         }else{
             //insert new
 
-            AbstractDatabase conn = new MySQLConnector("d0345763", "5AHEL2021", "rathgeb.at", 3306, "d0345763");
-            try {
-                PreparedStatement statement = conn.getConnection().prepareStatement(
-                        "INSERT INTO g5_Status (name) VALUES ('" + status_textField.getText() + "')");
-                statement.execute();
+            Status.newStatus(status_textField.getText());
 
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
         }
         status_ListView.setItems(Status.getList());
     }
