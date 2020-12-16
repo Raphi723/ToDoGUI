@@ -56,7 +56,7 @@ public class Controller {
     public void onUserClicked(ActionEvent actionEvent) {
         Parent root = null;
         try {
-            root = FXMLLoader.load(getClass().getResource("user.fxml"));
+            root = FXMLLoader.load(getClass().getResource("todo.fxml"));
 
             Stage s = new Stage();
             s.setTitle("Benutzer");
