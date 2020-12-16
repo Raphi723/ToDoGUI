@@ -89,6 +89,8 @@ public class Controller {
                 TodoController controller = (TodoController) loader.getController();
                 controller.setTodo(selectedTodo);
 
+                controller.setTodoList(todoListview.getItems());
+
                 contentPane.getChildren().add(todoPane);
 
 

@@ -1,3 +1,4 @@
+import javafx.collections.ObservableList;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -11,6 +12,7 @@ public class TodoController {
     public ComboBox statusCombobox;
     public ComboBox priorityCombobox;
     private Todo selected = null;
+    private ObservableList<Todo> todoList;
 
     public void setTodo(Todo item) {
         selected = item;
@@ -26,5 +28,9 @@ public class TodoController {
         descriptionTextarea.setText(selected.getDescription());
         statusCombobox.setItems(Status.getList());
         priorityCombobox.setItems(Priority.getList());
+    }
+
+    public void setTodoList(ObservableList<Todo> list) {
+        this.todoList = list;
     }
 }
