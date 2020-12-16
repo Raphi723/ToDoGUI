@@ -27,7 +27,11 @@ public class TodoController {
         nameTextfield.setText(selected.getName());
         descriptionTextarea.setText(selected.getDescription());
         statusCombobox.setItems(Status.getList());
+        /**
+         * der Status des ausgewählten Todos soll in der Combo
+         */
         priorityCombobox.setItems(Priority.getList());
+
     }
 
     public void setTodoList(ObservableList<Todo> list) {

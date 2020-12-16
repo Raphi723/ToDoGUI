@@ -13,11 +13,32 @@ public class Todo {
     private int id;
     private String name;
     private String description;
+    private Status status;
+    private Priority priority;
 
-    public Todo(int id, String name, String description) {
+    public Todo(int id, String name, String description, int statusId, int priorityId) {
         this.id = id;
         this.name = name;
         this.description = description;
+
+        /**
+         * Illegale Sami Lösung
+         * this.status = Status.getList().stream().filter(s -> s.getId() == statusId).findAny().get();
+         */
+
+        for (int i = 0; i <= Status.getList().size(); i++) {
+            if (Status.getList().get(i).getId() == statusId) {
+                this.status = Status.getList().get(i);
+            }
+        }
+
+        for (int i = 0; i <= Priority.getList().size(); i++) {
+            if (Priority.getList().get(i).getId() == priorityId) {
+                this.priority = Priority.getList().get(i);
+            }
+        }
+
+
     }
 
     public int getId() {
@@ -58,7 +79,9 @@ public class Todo {
             ResultSet results = statement.executeQuery();
 
             while (results.next()) {
-                Todo tmp = new Todo(results.getInt("todo_id"), results.getString("name"), results.getString("beschreibung"));
+                Todo tmp = new Todo(results.getInt("todo_id"), results.getString("name"),
+                        results.getString("beschreibung"), results.getInt("status_id"),
+                        results.getInt("prioritaet_id"));
 
                 list.add(tmp);
             }
