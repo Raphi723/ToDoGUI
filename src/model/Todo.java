@@ -26,13 +26,13 @@ public class Todo {
          * this.status = Status.getList().stream().filter(s -> s.getId() == statusId).findAny().get();
          */
 
-        for (int i = 0; i <= Status.getList().size(); i++) {
+        for (int i = 0; i < Status.getList().size(); i++) {
             if (Status.getList().get(i).getId() == statusId) {
                 this.status = Status.getList().get(i);
             }
         }
 
-        for (int i = 0; i <= Priority.getList().size(); i++) {
+        for (int i = 0; i < Priority.getList().size(); i++) {
             if (Priority.getList().get(i).getId() == priorityId) {
                 this.priority = Priority.getList().get(i);
             }
